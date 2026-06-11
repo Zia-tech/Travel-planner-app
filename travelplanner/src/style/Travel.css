@@ -1,47 +1,118 @@
-/* App container */
-.travel-app {
-  max-width: 700px;
-  margin: 80px ;
-  background-color: #0f0f0f; /* deep black */
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.6);
-  color: #e5ffe5; /* soft green text */
-  font-family: "Segoe UI", sans-serif;
+/* ── Page shell (sticky footer) ── */
+.app {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #0a0a0a;
 }
 
-/* Headings */
+.app main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-width: 0;
+  padding: 16px 12px;
+}
+
+/* ── Todo card ── */
+.travel-app {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #0f0f0f;
+  padding: 20px 16px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+  color: #e5ffe5;
+  font-family: "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+
+.travel-app__header {
+  margin-bottom: 16px;
+}
+
 .travel-app h1 {
   text-align: center;
-  color: #ffffff; /* neon green */
-  margin-bottom: 32px;
-  font-size: 56px;
-  letter-spacing: -1.68px;
+  color: #ffffff;
+  margin: 0;
+  font-size: clamp(1.5rem, 7vw, 2.5rem);
+  letter-spacing: -0.03em;
+  word-break: break-word;
 }
 
 .travel-app h2 {
-  margin-top: 25px;
-  color: #00cc66; /* softer green accent */
+  margin-top: 20px;
+  color: #00cc66;
   border-bottom: 1px solid #222;
   padding-bottom: 5px;
+  font-size: clamp(1rem, 4vw, 1.25rem);
 }
 
-/* Input section */
+.travel-app__sections {
+  width: 100%;
+  min-width: 0;
+}
+
+.travel-app__section {
+  width: 100%;
+  min-width: 0;
+}
+
+/* ── Form: always stacked on mobile ── */
 .todo-input {
   display: flex;
+  flex-direction: column;
   gap: 12px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+  width: 100%;
+  min-width: 0;
+}
+
+.todo-input__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+}
+
+.todo-input__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #00cc66;
+}
+
+.todo-input input,
+.todo-input select,
+.todo-input__submit {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  font-size: 16px;
 }
 
 .todo-input input,
 .todo-input select {
-  flex: 1;
   padding: 12px;
   border: 1px solid #00ff88;
   border-radius: 8px;
   background-color: #1a1a1a;
   color: #e5ffe5;
-  transition: border 0.3s ease;
+  appearance: none;
+}
+
+.todo-input select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2300ff88' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
 }
 
 .todo-input input:focus,
@@ -50,7 +121,7 @@
   outline: none;
 }
 
-.todo-input button {
+.todo-input__submit {
   background: linear-gradient(135deg, #00ff88, #00cc66);
   border: none;
   padding: 12px 18px;
@@ -58,17 +129,54 @@
   cursor: pointer;
   font-weight: bold;
   color: #0f0f0f;
-  transition: transform 0.2s ease;
 }
 
-.todo-input button:hover {
-  transform: scale(1.05);
+.todo-input__submit:hover {
+  filter: brightness(1.1);
 }
 
-/* Task list */
+/* Desktop only: horizontal row */
+@media (min-width: 768px) {
+  .app main {
+    padding: 24px 16px;
+  }
+
+  .travel-app {
+    padding: 30px;
+  }
+
+  .travel-app__header {
+    margin-bottom: 24px;
+  }
+
+  .travel-app h1 {
+    font-size: clamp(1.75rem, 5vw, 3.5rem);
+  }
+
+  .todo-input {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-bottom: 25px;
+  }
+
+  .todo-input__field {
+    flex: 1 1 180px;
+    width: auto;
+  }
+
+  .todo-input__submit {
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 88px;
+  }
+}
+
+/* ── Task list ── */
 .todo-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .todo-item {
@@ -77,43 +185,78 @@
   margin-bottom: 12px;
   border-radius: 8px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background 0.3s ease;
-}
-
-.todo-item:hover {
-  background: #222;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
 }
 
 .todo-item span {
-  flex: 1;
-  text-align: left;
   color: #e5ffe5;
+  word-break: break-word;
 }
 
 .todo-item button {
-  margin-left: 10px;
+  width: 100%;
   background: #ff4444;
   color: #fff;
   border: none;
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s ease;
 }
 
 .todo-item button:hover {
   background: #cc0000;
 }
 
-/* Navbar + Footer */
-.navbar, .footer {
+@media (min-width: 768px) {
+  .todo-item {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .todo-item span {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .todo-item button {
+    width: auto;
+    flex-shrink: 0;
+  }
+}
+
+/* ── Navbar + Footer ── */
+.navbar,
+.footer {
   background-color: #0f0f0f;
   color: #00ff88;
-  padding: 20px;
+  padding: 16px 12px;
   text-align: center;
   font-weight: bold;
   border-top: 1px solid #222;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.navbar {
   border-bottom: 1px solid #222;
+}
+
+.navbar h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+}
+
+.footer {
+  margin-top: auto;
+  border-bottom: none;
+}
+
+.footer p {
+  margin: 0;
+  font-size: clamp(0.75rem, 3vw, 0.95rem);
+  line-height: 1.5;
+  word-break: break-word;
 }
