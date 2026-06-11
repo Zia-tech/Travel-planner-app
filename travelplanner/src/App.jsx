@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import TravelTodoApp from "./components/TravelTodoApp";
-import "./style/travel.css";
+import "./style/Travel.css";
 
 function App() {
   return (
